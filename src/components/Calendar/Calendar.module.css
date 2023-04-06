@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+.calendar {
+	background: #ffffff;
+	box-shadow: 0px 2.3128px 39.3176px rgba(0, 0, 0, 0.25);
+	border-radius: 23.128px;
+	width: 660px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.calendar__date {
+	width: 85%;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem 0;
+	font-family: 'Oswald', sans-serif;
+	font-size: 32px;
+	line-height: 35px;
+}
+
+.calendar__date button {
+	background-color: transparent;
+}
+
+.calendar__days {
+	display: flex;
+	justify-content: space-between;
+	width: 81%;
+	padding: 1rem;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 35px;
+}
