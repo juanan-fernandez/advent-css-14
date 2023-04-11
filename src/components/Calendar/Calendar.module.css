@@ -12,7 +12,7 @@
 }
 
 .calendar__date {
-	width: 85%;
+	width: 560px;
 	display: flex;
 	justify-content: space-between;
 	padding: 1rem 0;
@@ -26,11 +26,29 @@
 }
 
 .calendar__days {
-	display: flex;
-	justify-content: space-between;
-	width: 81%;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	width: 600px;
 	padding: 1rem;
 	font-size: 32px;
 	font-weight: 700;
 	line-height: 35px;
+}
+
+.calendar__numbers {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 20px;
+	width: 580px;
+	padding-bottom: 1rem;
+	font-family: 'Roboto';
+	font-size: 32px;
+	line-height: 40px;
+}
+
+.today {
+	background-color: #ffd200;
+	border-radius: 50%;
+	text-align: center;
+	padding: 0.1rem;
 }

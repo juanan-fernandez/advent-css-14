@@ -25,31 +25,39 @@ const firstDayOfDate = (dateParam: Date): number => dateParam.getDay();
 
 const daysInMonth = (dateParam: Date): number => dateParam.getDate();
 
+const getRandomKey = (): number =>
+	Math.floor(Math.random() * 1000) * new Date().getTime();
+
 export default function Calendar() {
 	const [month, setMonth] = useState(getMonthNumber(new Date()));
 	const [year, setYear] = useState(new Date().getFullYear());
-	const [];
+	const [days, setDays] = useState<number[]>([]);
 
-	const renderCalendar = () => {
-		let stringCalendar = '';
+	const setUpCalendar = () => {
+		let calDays: number[] = [];
 		const firstDay = firstDayOfDate(new Date(year, month));
 		const lastDay = daysInMonth(new Date(year, month + 1, 0));
-		//const daysInMonth = lastDay - firstDay + 1;
+		const lastDayPrevMonth = daysInMonth(new Date(year, month, 0));
+		let firsDayOfCalendar = lastDayPrevMonth - firstDay + 1;
+		let dayOfMonth = 1;
 
-		for (let i = 0; i <= lastDay; i++) {
-			if (i < firstDay) {
-				stringCalendar += '<div class="calendar-day-empty">&nbsp;</div>';
-			} else {
-				stringCalendar += '<div class="calendar-day">' + i + '</div>';
-			}
+		while (firsDayOfCalendar <= lastDayPrevMonth) {
+			calDays.push(firsDayOfCalendar);
+			firsDayOfCalendar++;
 		}
-		console.log(stringCalendar);
 
-		return stringCalendar;
+		while (dayOfMonth <= lastDay) {
+			calDays.push(dayOfMonth);
+			dayOfMonth++;
+		}
+
+		setDays(calDays);
+		calDays = [];
+		return;
 	};
 
 	useEffect(() => {
-		renderCalendar();
+		setUpCalendar();
 	}, [month, year]);
 
 	const prevMonth = () => {
@@ -72,6 +80,20 @@ export default function Calendar() {
 		return;
 	};
 
+	const renderCalendar = () => {
+		const calendar = days.map((day, idx) => {
+			return (
+				<div
+					key={getRandomKey() + idx + day}
+					className={day == 12 ? `${styles.today}` : ''}
+				>
+					{day}
+				</div>
+			);
+		});
+		return calendar;
+	};
+
 	return (
 		<div className={styles.calendar}>
 			<div className={styles.calendar__date}>
@@ -91,8 +113,8 @@ export default function Calendar() {
 				<div>T</div>
 				<div>F</div>
 				<div>S</div>
-				{renderCalendar()}
 			</div>
+			<div className={styles.calendar__numbers}>{renderCalendar()}</div>
 		</div>
 	);
 }
