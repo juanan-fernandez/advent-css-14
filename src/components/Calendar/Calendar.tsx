@@ -28,6 +28,7 @@ const daysInMonth = (dateParam: Date): number => dateParam.getDate();
 export default function Calendar() {
 	const [month, setMonth] = useState(getMonthNumber(new Date()));
 	const [year, setYear] = useState(new Date().getFullYear());
+	const [];
 
 	const renderCalendar = () => {
 		let stringCalendar = '';
