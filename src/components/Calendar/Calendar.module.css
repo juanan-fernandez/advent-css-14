@@ -4,7 +4,7 @@
 	background: #ffffff;
 	box-shadow: 0px 2.3128px 39.3176px rgba(0, 0, 0, 0.25);
 	border-radius: 23.128px;
-	width: 660px;
+	width: 620px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -12,10 +12,11 @@
 }
 
 .calendar__date {
-	width: 560px;
+	width: 530px;
 	display: flex;
 	justify-content: space-between;
-	padding: 1rem 0;
+	padding-top: 1.3rem;
+	padding-bottom: 0.4rem;
 	font-family: 'Oswald', sans-serif;
 	font-size: 32px;
 	line-height: 35px;
@@ -28,7 +29,7 @@
 .calendar__days {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	width: 600px;
+	width: 565px;
 	padding: 1rem;
 	font-size: 32px;
 	font-weight: 700;
@@ -38,12 +39,12 @@
 .calendar__numbers {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
-	gap: 20px;
-	width: 580px;
+	gap: 15px;
+	width: 550px;
 	padding-bottom: 1rem;
 	font-family: 'Roboto';
 	font-size: 32px;
-	line-height: 40px;
+	line-height: 65px;
 }
 
 .today {
@@ -51,4 +52,8 @@
 	border-radius: 50%;
 	text-align: center;
 	padding: 0.1rem;
+}
+
+.day--not-current-month {
+	color: #ddd;
 }

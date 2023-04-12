@@ -1,40 +1,26 @@
 import styles from './Calendar.module.css';
+import {
+	daysInMonth,
+	getMonthName,
+	getMonthNumber,
+	getCurrentNumberDay,
+	getRandomKey,
+	firstDayOfDate,
+} from '../../utils/date-module';
 import { useEffect, useState } from 'react';
 
-const getMonthName = (month: number): string => {
-	const months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December',
-	];
-	return months[month].toUpperCase();
+type Day = {
+	day: number;
+	isCurrentMonth: boolean;
 };
-
-const getMonthNumber = (dateParam: Date): number => dateParam.getMonth();
-
-const firstDayOfDate = (dateParam: Date): number => dateParam.getDay();
-
-const daysInMonth = (dateParam: Date): number => dateParam.getDate();
-
-const getRandomKey = (): number =>
-	Math.floor(Math.random() * 1000) * new Date().getTime();
 
 export default function Calendar() {
 	const [month, setMonth] = useState(getMonthNumber(new Date()));
 	const [year, setYear] = useState(new Date().getFullYear());
-	const [days, setDays] = useState<number[]>([]);
+	const [days, setDays] = useState<Day[]>([]);
 
 	const setUpCalendar = () => {
-		let calDays: number[] = [];
+		let calDays: Day[] = [];
 		const firstDay = firstDayOfDate(new Date(year, month));
 		const lastDay = daysInMonth(new Date(year, month + 1, 0));
 		const lastDayPrevMonth = daysInMonth(new Date(year, month, 0));
@@ -42,18 +28,29 @@ export default function Calendar() {
 		let dayOfMonth = 1;
 
 		while (firsDayOfCalendar <= lastDayPrevMonth) {
-			calDays.push(firsDayOfCalendar);
+			calDays.push({ day: firsDayOfCalendar, isCurrentMonth: false });
 			firsDayOfCalendar++;
 		}
 
 		while (dayOfMonth <= lastDay) {
-			calDays.push(dayOfMonth);
+			calDays.push({ day: dayOfMonth, isCurrentMonth: true });
 			dayOfMonth++;
 		}
 
 		setDays(calDays);
 		calDays = [];
 		return;
+	};
+
+	const itsTodaysDate = (dayCal: number) => {
+		const today = new Date(
+			new Date().getFullYear(),
+			getMonthNumber(new Date()),
+			getCurrentNumberDay(new Date())
+		);
+		const calDay = new Date(year, month, dayCal);
+
+		return today.getTime() === calDay.getTime();
 	};
 
 	useEffect(() => {
@@ -84,10 +81,12 @@ export default function Calendar() {
 		const calendar = days.map((day, idx) => {
 			return (
 				<div
-					key={getRandomKey() + idx + day}
-					className={day == 12 ? `${styles.today}` : ''}
+					key={getRandomKey() + idx + day.day}
+					className={`${itsTodaysDate(day.day) ? styles.today : ''} ${
+						day.isCurrentMonth ? '' : styles['day--not-current-month']
+					}`}
 				>
-					{day}
+					{day.day}
 				</div>
 			);
 		});
